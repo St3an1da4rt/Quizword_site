@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizword</title>
+    <link rel="stylesheet" href="../static/style/card.css">
+    <link rel="stylesheet" href="../static/style/progress_bar.css">
+    <script>
+        function two_function() {
+            toggleButtons();
+            sendRequest(onclick='sendRequest("KNOW", JSON.parse(this.dataset.mat))')
+            return 1
+        }
+
+        function toggleButtons() {
+            var button1 = document.getElementById('word');
+            var button2 = document.getElementById('meaning');
+            if (button1.classList.contains('fade-in')) {
+                button1.classList.remove('fade-in');
+                button1.classList.add('fade-out');
+                button2.classList.remove('fade-out');
+                button2.classList.add('fade-in');
+            } else {
+                button2.classList.remove('fade-in');
+                button2.classList.add('fade-out');
+                button1.classList.remove('fade-out');
+                button1.classList.add('fade-in');
+            }
+        }
+    </script>
+</head>
+<body>
+    <main>
+        <form target="_self" action="/">
+            <button class="exit" href="/">
+                <span></span><span></span>
+            </button>
+        </form>
+        <div class="progress">
+            <p>{{entrance}}</p>
+            <div id="progress-4" data-value="{{value}}"></div>
+            <p>{{exit}}</p>
+        </div>
+        <div class="card_game">
+            {% if state == 1 %}
+                <div class="div_word">
+                    <div onclick="toggleButtons()" id='word' class="fade-in">
+                        <p>{{ mat['word'] }}</p>
+                    </div>
+                    <div type="button" onclick="toggleButtons()" id='meaning' class="fade-out">
+                        <p>{{ mat['word_translate'] }}</p>
+                        <div class="image-container" data-image-url="{{ mat['url_image'] }}"></div>
+                    </div>
+                </div>
+                <div class="buttons_word">
+                    <button onclick='sendRequestRepeat(JSON.parse(this.dataset.mat))' data-mat='{{ mat | tojson | safe }}' class="know_word">Изучено</button>
+                    <button onclick='sendRequestSkip()' class="learn_word">Учить</button>
+                </div>
+            {% elif state == 2 %}
+                <div class="div_word">
+                    <div onclick="toggleButtons()" id='word' class="fade-in">
+                        <p>{{ mat['word_translate'] }}</p>
+                    </div>
+                    <div type="button" onclick="toggleButtons()" id='meaning' class="fade-out">
+                        <p>{{ mat['word'] }}</p>
+                        <div class="image-container" data-image-url="{{ mat['url_image'] }}"></div>
+                    </div>
+                </div>
+                <div class="buttons_word_match">
+                    <div id="top_buttons">
+                        <button id="match_word_0" onclick='sendRequestMatch(JSON.parse(this.dataset.other_word), JSON.parse(this.dataset.mat), "match_word_0")' data-mat='{{ mat | tojson | safe }}' data-other_word='{{ other_word | tojson | safe }}' class="match_word">{{other_word['0']}}</button>
+                        <button id="match_word_1" onclick='sendRequestMatch(JSON.parse(this.dataset.other_word), JSON.parse(this.dataset.mat), "match_word_1")' data-mat='{{ mat | tojson | safe }}' data-other_word='{{ other_word | tojson | safe }}' class="match_word">{{other_word['1']}}</button>
+                    </div>
+                    <div id="bottom_buttons">    
+                        <button id="match_word_2" onclick='sendRequestMatch(JSON.parse(this.dataset.other_word), JSON.parse(this.dataset.mat), "match_word_2")' data-mat='{{ mat | tojson | safe }}' data-other_word='{{ other_word | tojson | safe }}' class="match_word">{{other_word['2']}}</button>
+                        <button id="match_word_3" onclick='sendRequestMatch(JSON.parse(this.dataset.other_word), JSON.parse(this.dataset.mat), "match_word_3")' data-mat='{{ mat | tojson | safe }}' data-other_word='{{ other_word | tojson | safe }}' class="match_word">{{other_word['3']}}</button>
+                    </div>
+                </div>
+            {% elif state == 3 %}
+                <div class="div_word">
+                    <div onclick="toggleButtons()" id='word' class="fade-in">
+                        <p>{{ mat['word_translate'] }}</p>
+                    </div>
+                    <div type="button" onclick="toggleButtons()" id='meaning' class="fade-out">
+                        <p>{{ mat['word'] }}</p>
+                        <div class="image-container" data-image-url="{{ mat['url_image'] }}"></div>
+                    </div>
+                </div>
+                <div class="buttons_word_check">
+                    <input type="text" name="input" id="input_check" placeholder="Напиши это слово на английском языке" />
+                    <button id="check_word" onclick='sendRequestCheck(JSON.parse(this.dataset.mat))' data-mat='{{ mat | tojson | safe }}' class="check_word">Проверить</button>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+    <script type="text/javascript">
+        function insertImage(containerClass) {
+            // Получаем элементы с указанным классом
+            var container = document.getElementsByClassName(containerClass)[0];
+            // Перебираем все контейнеры и вставляем изображение
+                // Получаем URL изображения из атрибута data-image-url
+            var imageUrl = container.getAttribute('data-image-url');
+            if (imageUrl){
+            // Создаем новый элемент img
+            var img = document.createElement('img');
+            img.src = imageUrl;
+            // img.alt = 'Изображение';
+            
+            // Очищаем контейнер и добавляем изображение
+            container.innerHTML = '';
+            container.appendChild(img);
+            }}
+
+        function insertValue(containerClass) {
+            // Получаем элементы с указанным классом
+            let container = document.getElementById(containerClass)
+            // Перебираем все контейнеры и вставляем изображение
+                // Получаем URL изображения из атрибута data-image-url
+            let value = container.getAttribute('data-value')
+            if (value){
+                container.style = `background-size: ${value}%`;
+            }}
+
+        window.onload = function() {
+            var containerClass = 'image-container';
+            insertImage(containerClass);
+            insertValue('progress-4');
+        };
+
+        function sendRequestRepeat(mat) {
+            sendRequest_(mat)
+            sendRequestSkip()
+        };
+        
+        function sendRequest_(mat){
+            fetch('/repeat_word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ mat: mat })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    console.log(data.result);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        }
+
+        function sendRequestCheck(mat) {
+            let input_text = document.getElementById("input_check");
+            let obj_for_change_color = document.getElementById('check_word');
+            console.log(mat['word'], input_text.value)
+            if (String(mat['word']).trim().toLowerCase() === String(input_text.value).trim().toLowerCase()) {
+                obj_for_change_color.classList.toggle('plus')
+                sendRequest_(mat)
+                sendRequestSkip()
+            } else {
+                obj_for_change_color.classList.toggle('minus')
+                sendRequestSkip()
+            }
+        };
+
+        function sendRequestSkip() {
+            window.location.href = '/repeat_words';
+        };
+
+        function sendRequestMatch(other_word, mat, id) {
+            let obj_for_change_color = document.getElementById(id);
+            if (other_word[id.at(-1)] === mat['word']) {
+                obj_for_change_color.classList.toggle('plus')
+                sendRequest_(mat)
+                sendRequestSkip();
+            } else {
+                obj_for_change_color.classList.toggle('minus')
+                if (document.getElementsByClassName("minus").length === 3) {
+                    sendRequestSkip();
+                }
+            };
+        }
+    </script>
+</body>
+</html>

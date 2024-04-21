@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"> -->
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style/header.css">
+    <link rel="stylesheet" href="../static/style/register.css">
+    <link rel="stylesheet" href="../static/style/main.css">
+    <title>Quizword</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar_header">
+            <a class="logo" href="/">quizword</a>
+            {% if current_user.is_authenticated %}
+                <a class="user_name_header" href="/logout">{{ current_user.name }}</a>
+            {% else %}
+                <div class="register_and_login">
+                    <a class="btn_to_register_header" href="/register">Зарегистрироваться</a>
+                    <a class="btn_to_login_header" href="/login">Войти</a>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+<!-- Begin page content -->
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

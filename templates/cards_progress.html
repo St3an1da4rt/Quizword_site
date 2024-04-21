@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizword</title>
+    <link rel="stylesheet" href="../static/style/card_progress.css">
+</head>
+<body>
+    <main>
+        <div class="shadow">
+            <form target="_self" action="/repeat_words">
+                <button onclick="close_shadow()" class="exit_progress" href="/repeat_words">
+                    <span></span><span></span>
+                </button>
+            </form>
+            <div class="progress_window">
+                <div id="top">
+                    <div class="header">
+                        <p>Да ты в ударе!</p>
+                        <img alt="aa" src="https://i.gifer.com/5Mz4.gif">
+                    </div>
+                    <h2>Выученно за сегодня: {{ progress['numbers' ]}}</h2>
+                </div>
+                <div id="bottom">
+                    <h2 class="shoulddo">Учи слова в таком же темпе, и ты станешь настоящим гуру английского языка!</h2>
+                    <h2 class="shoulddo">Вот 10 из них!</h2>
+                    <div class="words">
+                        <ol>
+                        {% for word in progress['words_with_translate'] %}
+                            <li>{{loop.index}}. {{word[0]}} - {{word[1]}}</li>
+                        {% endfor%}
+                        </ol>
+                    </div>
+                </div>
+                    
+            </div>
+            <button onclick="close_shadow()" class="exit_progress_btn" href="/repeat_words">
+                Закрыть
+            </button>
+        </div>
+    </main>
+    <script type="text/javascript">
+        function close_shadow(value=1) {
+            fetch('/change_progress', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({value: value})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    console.log(data.result);
+
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+            window.location.href = '/repeat_words';
+        }
+    </script>
+</body>
+</html>

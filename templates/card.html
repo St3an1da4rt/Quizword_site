@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizword</title>
+    <link rel="stylesheet" href="../static/style/card.css">
+    <link rel="stylesheet" href="../static/style/progress_bar.css">
+    <script>
+        function toggleButtons() {
+            var button1 = document.getElementById('word');
+            var button2 = document.getElementById('meaning');
+            if (button1.classList.contains('fade-in')) {
+                button1.classList.remove('fade-in');
+                button1.classList.add('fade-out');
+                button2.classList.remove('fade-out');
+                button2.classList.add('fade-in');
+            } else {
+                button2.classList.remove('fade-in');
+                button2.classList.add('fade-out');
+                button1.classList.remove('fade-out');
+                button1.classList.add('fade-in');
+            }
+
+
+            let block = document.querySelector('.fontsize');
+            let text = document.querySelector('.fontsize .text');
+            let w = block.offsetWidth;
+            text.style.fontSize = w/24 + "px";
+            text.style.top = w/38 + "px";
+            text.style.left = w/9 + "px";
+        }
+    </script>
+</head>
+<body>
+    <!-- <main> -->
+        <form target="_self" action="/">
+            <button class="exit" href="/">
+                <span></span><span></span>
+            </button>
+        </form>
+        <div class="progress">
+            
+        </div>
+        <div class="card_game">
+            <div class="div_word">
+                <div onclick="toggleButtons()" id='word' class="fade-in">
+                    <p>{{ mat['word'] }}</p>
+                </div>
+                <div type="button" onclick="toggleButtons()" id='meaning' class="fade-out">
+                    <p>{{ mat['word_translate'] }}</p>
+                    <div class="image-container" data-image-url="{{ mat['url_image'] }}"></div>
+                </div>
+            </div>
+            <div class="buttons_word">
+                <button onclick='sendRequest_learn("KNOW", JSON.parse(this.dataset.mat))' data-mat='{{ mat | tojson | safe }}' class="know_word">Знаю</button>
+                <button onclick='sendRequest_learn("LEARN", JSON.parse(this.dataset.mat))' data-mat='{{ mat | tojson | safe }}' class="learn_word">Учить</button>
+            </div>
+        </div>
+    <!-- </main> -->
+    <script type="text/javascript">
+        function insertImage(containerClass) {
+            // Получаем элементы с указанным классом
+            var container = document.getElementsByClassName(containerClass)[0];
+            // Перебираем все контейнеры и вставляем изображение
+                // Получаем URL изображения из атрибута data-image-url
+            var imageUrl = container.getAttribute('data-image-url');
+            if (imageUrl){
+            // Создаем новый элемент img
+            var img = document.createElement('img');
+            img.src = imageUrl;
+            // img.alt = 'Изображение';
+            
+            // Очищаем контейнер и добавляем изображение
+            container.innerHTML = '';
+            container.appendChild(img);
+            }}
+        window.onload = function() {
+            var containerClass = 'image-container';
+            insertImage(containerClass);
+        };
+        function sendRequest_learn(value, mat) {
+            mat['value'] = value;
+            console.log(mat)
+            fetch('/learn_word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ mat: mat })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    console.log(data.result);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+            window.location.href = '/learn_words';
+        }
+    </script>
+</body>
+</html>

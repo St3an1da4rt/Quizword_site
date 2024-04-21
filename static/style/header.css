@@ -1,0 +1,95 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+header::-webkit-scrollbar {
+    width: 0px;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* HEADER */
+
+header {
+    width: 100vw;
+    padding: 0px;
+}
+
+.navbar_header {
+    width: 100vw;
+    padding: 2vw 2vw;
+    display: flex;
+    justify-content: space-between;
+    background-color: #4255ff;
+}
+
+.logo {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 800;
+    width: 2vw;
+    margin-left: 3vw;
+    min-width: 90px;
+    font-size: 20px;
+    font-style: normal;
+}
+
+.navbar_header a {
+    display: flex;
+    align-items: center;
+}
+
+div.register_and_login {
+    margin-right: 4vw;
+    font-weight: 800;
+    padding-left: 3vw;
+    display: flex;
+    flex-direction: row;
+    gap: 5vw;
+    user-select: none;
+}
+
+.logo {
+    text-transform: uppercase;
+    color: #fff;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: rgba(255, 255, 255, 0.0);
+  }
+
+.user_name_header {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    margin-right: 4vw;
+    user-select: none;
+}
+
+.btn_to_register_header {
+    color: #fff;
+    user-select: none;
+}
+
+.btn_to_login_header {
+    border: 1px solid #ffCD1F;
+    background-color: #ffCD1F;
+    min-height: 30px;
+    min-width: 60px;
+    height: 3vw;
+    width: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}

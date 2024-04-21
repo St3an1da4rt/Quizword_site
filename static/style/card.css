@@ -1,0 +1,295 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    /* background-color: #fff; */
+}
+
+.exit {
+    z-index: 3;
+    border: none;
+    position: absolute;
+    top: 2vw;
+    right: 2vw;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+}
+.exit span {
+    background-color: #fff;
+}
+
+.exit span:nth-child(1) {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    width: 30px;
+    height: 3px;
+    transform: translateY(0) rotate(45deg);
+}
+
+.exit span:nth-child(2) {
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    width: 30px;
+    height: 3px;
+    transform: translateY(0) rotate(135deg);
+}
+
+.fade-out{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.fade-in {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+/* main {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+} */
+
+.card_game {
+    z-index: 2;
+    position: relative;
+    background-color: #423ED8;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    gap: 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div_word {
+    
+    position: relative;
+    width: 50vw;
+    max-width: 500px;
+    height: 50vw;
+    max-height: 500px;
+}
+
+.div_word div {
+    box-shadow: 0px 0px 10px #fff;
+    position: relative;
+}
+
+.div_word p {
+    
+    position: relative;
+    font-size: large;
+    font-weight: 900;
+}
+
+#word {
+    /* margin: 10%; */
+    position: absolute;
+    background-color: #fff;
+    width: 50vw;
+    max-width: 500px;
+    height: 50vw;
+    max-height: 500px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center
+}
+
+#meaning {
+    border-radius: 20px;
+    position: absolute;
+    background-color: #fff;
+    width: 50vw;
+    max-width: 500px;
+    height: 50vw;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1vw;
+    align-items: center;
+    justify-content: center
+}
+
+.image-container {
+    position: relative;
+    border: none;
+    width: 25vw;
+    max-width: 250px;
+    max-height: calc(100% - 30px);
+
+}
+.image-container img {
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    /* height: 100%; */
+}
+
+.buttons_word {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.know_word {
+    background-color: #FFCD1F;
+    box-shadow: 0px 0px 10px #FFCD1F;
+    border: none;
+    position: relative;
+    min-width: 120px;
+    width: 30vw;
+    max-width: 330px;
+    min-height: 20px;
+    height: 5vw;
+    max-height: 55px;
+    border-radius: 10px;
+}
+
+.buttons_word_match {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.buttons_word_match form {
+    position: relative;
+    width: 100%;
+    
+}
+
+.buttons_word_match div {
+    position: relative;
+    height: 7vh;
+    width: 80%;
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.buttons_word_match button {
+    position: relative;
+    height: 100%;
+    width: calc(50% - 20px);
+    max-width: 200px;
+    border: none;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 5px #fff; */
+}
+
+.plus {
+    background-color: rgba(137, 218, 89, 0.99);
+    box-shadow: 0px 0px 15px #89DA59;
+    color: #fff;
+}
+
+.minus {
+    background-color: rgba(255, 87, 31, 0.9);
+    box-shadow: 0px 0px 10px rgba(255, 87, 31, 0.9);
+    color: #fff;
+}
+
+.learn_word {
+    background-color: #89DA59;
+    box-shadow: 0px 0px 10px #89DA59;
+    border: none;
+    position: relative;
+    min-width: 120px;
+    width: 30vw;
+    max-width: 330px;
+    min-height: 20px;
+    height: 5vw;
+    max-height: 55px;
+    border-radius: 10px;
+}
+
+.progress {
+    display: block;
+}
+
+.buttons_word_check {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10vw;
+}
+
+#input_check {
+    background-color: rgba(255, 255, 255, 0.9);
+    height: 30px;
+    width: 30vw;
+    max-width: 300px;
+    padding: 10px;
+    color: #000;
+    border-radius: 10px;
+    box-shadow: none;
+    border: 2px solid #000;
+}
+
+#input_check:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+#check_word {
+    border-radius: 10px;
+}
+
+.progress {
+    width:300px;
+    height:20px;
+    position: absolute;
+    z-index: 9;
+    display: flex;
+    top: 3vw;
+    left: calc(50vw - 150px);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#progress-4 {
+
+    width:240px;
+    height:20px;
+    -webkit-mask:linear-gradient(90deg,#000 90%,#0000 0) 0/5%;
+    background:
+     linear-gradient(rgba(255, 87, 31, 0.9) 0 0) 0/0% no-repeat
+     rgba(4, 0, 156, 0.4);
+}
+
+.progress p {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgba(255, 100, 50, 1);
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+}

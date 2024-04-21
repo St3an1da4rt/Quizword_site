@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+    <div class="main_reg">
+        <div class="button_game">
+            <a href="learn_words">Учить слова</a>
+            <a href="repeat_words">Повторить слова</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="main_without_reg">
+        <div class="index">
+            <h1>Откройте для себя новую эру обучения с использованием искусственного интеллекта</h1>
+            <p>Quizword — это больше, чем просто карточки: это глобальная обучающая платформа №1. Присоединяйтесь к нашему сообществу из 300 миллионов учащихся, которые используют практические тесты Quizword, экспертные решения и инструменты на базе искусственного интеллекта, чтобы улучшить свои оценки и достичь своих целей.</p>
+            <form action="/login" target="_self">
+                <button id="singup_btn">Войти</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
