@@ -1,4 +1,4 @@
-import datetime
+# инициализируем необходимые библиотеки
 import sqlalchemy
 from sqlalchemy import ForeignKey
 import flask_login
@@ -11,13 +11,14 @@ translater = Translator()
 
 
 class Words(SqlAlchemyBase, flask_login.UserMixin):
+    # Задаём имя модели
     __tablename__ = 'words'
-
+    # Колонки модели
     id = sqlalchemy.Column(sqlalchemy.Integer, unique=True, primary_key=True, autoincrement=True)
     word_in_english = sqlalchemy.Column(sqlalchemy.String)
     word_in_russian = sqlalchemy.Column(sqlalchemy.String)
     url_for_img = sqlalchemy.Column(sqlalchemy.String)
-
+    # Настраиваем отношения моделей
     users = orm.relationship("Associate", back_populates="word")
     category_id = sqlalchemy.Column(ForeignKey("categories.id"))
     category = orm.relationship("Category", back_populates="words_list")

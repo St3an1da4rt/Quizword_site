@@ -2,10 +2,12 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
+
 SqlAlchemyBase = orm.declarative_base()
 
 __factory = None
 
+# Функция создания базы данных
 def global_init(db_file):
     global __factory
 
